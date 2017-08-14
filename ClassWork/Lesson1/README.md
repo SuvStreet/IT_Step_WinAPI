@@ -144,26 +144,25 @@ void f() {
 * **MultiByteToWideChar()** – в Unicode
 ```cpp
 int MultiByteToWideChar(
-UINT CodePage,
-DWORD dwFlags,
-LPCSTR lpMultiByteStr,
-int cbMultiByte,
-LPWSTR lpWideCharStr,
-int cchWideChar
-);
+ UINT CodePage,
+ DWORD dwFlags,
+ LPCSTR lpMultiByteStr,
+ int cbMultiByte,
+ LPWSTR lpWideCharStr,
+ int cchWideChar);
 ```
 
 * **WideCharToMultiByte()** – из Unicode
 ```cpp
 int WideCharToMultiByte(
-UINT CodePage,
-DWORD wFlags,
-LPCWSTR lpWideCharStr,
-int cchWideChar,
-LPSTR lpMultiByteStr,
-int cbMultiByte,
-LPCSTR lpDefaultChar,
-LPBOOL lpUsedDefaultChar );
+ UINT CodePage,
+ DWORD wFlags,
+ LPCWSTR lpWideCharStr,
+ int cchWideChar,
+ LPSTR lpMultiByteStr,
+ int cbMultiByte,
+ LPCSTR lpDefaultChar,
+ LPBOOL lpUsedDefaultChar);
 ```
 
 * функции, специфичные для Windows
