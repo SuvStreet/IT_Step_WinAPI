@@ -37,4 +37,4 @@
 >###### [**Обработка сообщений таймера**](https://github.com/SuvStreet/IT_Step_WinAPI/blob/master/ClassWork/Lesson2/README.md#Обработка-сообщений-таймера)
 >###### [**Изменение стиля**](https://github.com/SuvStreet/IT_Step_WinAPI/blob/master/ClassWork/Lesson2/README.md#Изменение-стиля)
 
->###### [**---**](-)
+* ## [**---**](-)
