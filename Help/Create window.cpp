@@ -10,19 +10,19 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR IpCmdLine
 	
 	// регистрация оконного класса
 	WNDCLASSEX wndclass;
-	//memset(&wndclass, 0, sizeof(wndclass));						// предворительное обнуление = ! выстовление параметров важных полей
-	wndclass.cbSize = sizeof(wndclass);								// (!) размер структуры												[UINT]	  	cbSize
-	wndclass.style = CS_HREDRAW | CS_VREDRAW;						// (!) стиль окна												  	[UINT]	  	style
-	wndclass.lpfnWndProc = WndProc;									// (!) указатель на оконную функцию						      		[WNDPROC]	lpfnWndProc
-	wndclass.cbClsExtra = 0;										// количество байт доп. инф. о классе							  	[int]	  	cbClsExtra
-	wndclass.cbWndExtra = 0;										// к-во байт доп. инф. об окне								  		[int]		cbWndExtra
-	wndclass.hInstance = hInstance;									// (!) дескриптор приложения									  	[HINSTANCE] hInstance
-	wndclass.hCursor = LoadCursor(NULL, IDC_ARROW);					// дескриптор курсора мыши									  		[HCURSOR]	hCursor
-	wndclass.hIcon = LoadIcon(NULL, IDI_APPLICATION);				// дескриптор пиктограммы										  	[HICON]	  	hIcon
+	//memset(&wndclass, 0, sizeof(wndclass));			// предворительное обнуление = ! выстовление параметров важных полей
+	wndclass.cbSize = sizeof(wndclass);				// (!) размер структуры							[UINT]	  	cbSize
+	wndclass.style = CS_HREDRAW | CS_VREDRAW;			// (!) стиль окна							[UINT]	  	style
+	wndclass.lpfnWndProc = WndProc;					// (!) указатель на оконную функцию					[WNDPROC]	lpfnWndProc
+	wndclass.cbClsExtra = 0;					// количество байт доп. инф. о классе					[int]	  	cbClsExtra
+	wndclass.cbWndExtra = 0;					// к-во байт доп. инф. об окне						[int]		cbWndExtra
+	wndclass.hInstance = hInstance;					// (!) дескриптор приложения						[HINSTANCE] 	hInstance
+	wndclass.hCursor = LoadCursor(NULL, IDC_ARROW);			// дескриптор курсора мыши						[HCURSOR]	hCursor
+	wndclass.hIcon = LoadIcon(NULL, IDI_APPLICATION);		// дескриптор пиктограммы						[HICON]	  	hIcon
 	wndclass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH); 	// CreateSolidBrush(RGB(0, 0, 0)); // дескриптор кисти для фона 	[HBRUSH]	hbrBackground
-	wndclass.lpszMenuName = NULL;									// имя меню													  		[LPCWSTR]	lpszMenuName
-	wndclass.lpszClassName = szClassName;							// имя класса окна											  		[LPCWSTR]   lpszClassName
-	wndclass.hIconSm = LoadIcon(NULL, IDI_APPLICATION);				// дескриптор маленькой иконки								  		[HICON]	  	hIconSm
+	wndclass.lpszMenuName = NULL;					// имя меню								[LPCWSTR]	lpszMenuName
+	wndclass.lpszClassName = szClassName;				// имя класса окна							[LPCWSTR]   	lpszClassName
+	wndclass.hIconSm = LoadIcon(NULL, IDI_APPLICATION);		// дескриптор маленькой иконки						[HICON]	  	hIconSm
 
 	if (!RegisterClassEx(&wndclass)) {
 		MessageBox(NULL, L"1", L"!", MB_OK);
