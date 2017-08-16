@@ -25,7 +25,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR IpCmdLine
 	wndclass.hIconSm = LoadIcon(NULL, IDI_APPLICATION);		// дескриптор маленькой иконки						[HICON]	  	hIconSm
 
 	if (!RegisterClassEx(&wndclass)) {
-		MessageBox(NULL, L"1", L"!", MB_OK);
+		MessageBox(NULL, L"1", NULL, MB_OK | MB_ICONSTOP);
 		return false;
 	}
 	
