@@ -31,23 +31,23 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR IpCmdLine
 	
 	// создание окна
 	HWND hWnd = CreateWindowEx(		
-		WS_EX_TOPMOST,				// [DWORD]		dwExStyle
-		szClassName,				// [LPSTR]		lpClassName
+		WS_EX_TOPMOST,			// [DWORD]		dwExStyle
+		szClassName,			// [LPSTR]		lpClassName
 		_TEXT("My first window"),	// [LPSTR]		lpWindowName
 		WS_OVERLAPPEDWINDOW,		// [DWORD]		dwStyle
-		10, 10, 500, 500,			// [int]		X, [int] Y, [int] nWidth, [int] nHeight,
-		HWND_DESKTOP,				// [HWND]		hWndParent
-		NULL,						// [HMENU]		hMenu
-		hInstance,					// [HINSTANCE]	hInstance
-		NULL);						// [LPVOID]		lpParam
+		10, 10, 500, 500,		// [int]		X, Y, nWidth, nHeight,
+		HWND_DESKTOP,			// [HWND]		hWndParent
+		NULL,				// [HMENU]		hMenu
+		hInstance,			// [HINSTANCE]		hInstance
+		NULL);				// [LPVOID]		lpParam
 
 	if (!hWnd) {
 
 		// окно сообщений
 		MessageBox(
-			NULL,					// дескриптор родителя		[HWND]		hWnd
-			L"2",					// текст внутри окна		[LPCWSTR]	lpText
-			NULL,					// заголовок окна			[LPCWSTR]	lpCaption
+			NULL,			// дескриптор родителя		[HWND]		hWnd
+			L"2",			// текст внутри окна		[LPCWSTR]	lpText
+			NULL,			// заголовок окна		[LPCWSTR]	lpCaption
 			MB_OK | MB_ICONSTOP);	// набор кнопок, тип окна	[UINT]		uType
 		return false;
 	}
