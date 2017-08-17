@@ -99,10 +99,10 @@ Cообщения             | Описание
 * обрабатываются в функции `WndProc()`
 * в параметре `wParam` содержится виртуальный код нажатой / отпущенной клавиши
 
-Виртуальные коды клавиш
+Виртуальные коды клавиш (Virtual key)
 ---
 
-Коды                                      | Описание
+Virtual key                               | Описание
 ------------------------------------------|-------------------------
 **`VK_SHIFT`**                            |   Shift
 **`VK_CONTROL`**                          |   Control
@@ -309,24 +309,51 @@ case WM_PAINT:
 }
 ```
 
+Рисование вне WM_PAINT (при сообщениях мыши или клавиатуры)
+---
 
+* создать объект структуры типа `RECT`
+* создать объект структуры типа `PAINTSTRUCT`
+* получить дескриптор контекста устройства `HDC` через вызов функции **`GetDС()`**
+* нарисовать в окне всё, что нужно
+* обновить окно
+* освободить контекст устройства с помощью функции **`ReleaseDC()`** при обработке того же события
 
+Полезные функции (1)
+---
 
+```cpp
+BOOL SetWindowText(HWND hwnd, LPCTSTR str);
+```
 
+**`Изменяет текст заголовка окна на переданный`**
 
+```cpp
+case WM_LBUTTONDOWN:
+  SetWindowText(hWnd, _TEXT("Левая кнопка"));
+  break;
+case WM_RBUTTONDOWN:
+  SetWindowText(hWnd, _TEXT("Правая кнопка"));
+break;
+```
 
+Полезные функции (2)
+---
 
+```cpp
+BOOL MoveWindow(HWND hwnd, int x, int y, int iWidht, int iHeight, BOOL bRepaint);
+```
 
+**`Позволяет изменить размер окна или его положение`**
 
-
-
-
-
-
-
-
-
-
+```cpp
+case WM_LBUTTONDOWN:
+  MoveWindow(hWnd, 0, 0, rect.right, rect.bottom, true);
+  break;
+case WM_RBUTTONDOWN:
+  MoveWindow(hWnd, 0, 0, rect.right / 2, rect.bottom / 2, true);
+break;
+```
 
 [**-->     Laboratory_work3     <--**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/Laboratory_work/Work3)
 
