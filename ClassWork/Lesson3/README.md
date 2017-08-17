@@ -96,8 +96,8 @@ Cообщения             | Описание
 **`WM_SYSKEYDOWN`**   |   нажата любая клавиша в сочетании с Alt
 **`WM_SYSKEYUP`**     |   отпущена системная клавиша
 
-* обрабатываются в функции `WndProc`()
-* в параметре wParam содержится виртуальный код нажатой / отпущенной клавиши
+* обрабатываются в функции `WndProc()`
+* в параметре `wParam` содержится виртуальный код нажатой / отпущенной клавиши
 
 Виртуальные коды клавиш
 ---
@@ -108,13 +108,211 @@ Cообщения             | Описание
 **`VK_CONTROL`**                          |   Control
 **`VK_MENU`**                             |   Alt
 **`VK_ESCAPE`**                           |   Esc
-**`VK_F1 … VK_F12`**                      |   F1 … F12
+**`VK_F1 ... VK_F12`**                    |   F1 ... F12
 **`VK_CAPITAL`**                          |   Caps Lock
 **`VK_RETURN`**                           |   Enter
 **`VK_SPACE`**                            |   Пробел
 **`VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN`**   |   Стрелки
 **`х30 ... 0х39`**                        |   0 ... 9
 **`0х41 ... 0х5a`**                       |   A ... Z
+
+Сообщения клавиатуры (нажатие символьных клавиш)
+---
+
+* нажатая символьная клавиша формирует сообщение `WM_CHAR`
+* в параметре `wParam` хранится код символа ASCII (**`А`** – виртуальная клавиша **`А`**; **`z`** – виртуальная клавиша **`z`** и т. п.)
+* параметр `lParam` совпадает с `lParam` аппаратного сообщения: LOWORD(lParam) – количество повторов при удержании клавиши, HIWORD(lParam) – много дополнительной информации
+
+Обработка сообщений клавиатуры (пример)
+---
+
+```cpp
+switch(iMsg) {
+  case WM_KEYDOWN:
+    switch(wParam) {
+      case VK_F1:
+        MessageBox(hwnd, L"F1", L"!!!", MB_OK);
+        break;
+      default:
+        break;
+    }
+    
+    break;
+  case WM_CHAR:
+    if(wParam == 'a') {
+      MessageBox(hwnd, L"a", L"!!!", MB_OK);
+    }
+  break;
+}
+```
+
+Событие WM_PAINT
+---
+
+**```
+запрос на перерисовку окна, чтобы сделать недействительную область действительной
+**```
+
+**`Когда наступает:`**
+* окно изменило **`размер`**
+* использована **`полоса прокрутки`**
+* стала видимой **`скрытая область`**
+* вызвана функция **`InvalidateRect()`**
+
+Обработка события WM_PAINT
+---
+
+* создать объект структуры типа `RECT`
+* создать объект структуры типа `PAINTSTRUCT`
+* получить дескриптор контекста устройства `HDC` через вызов функции **`BeginPaint`**
+* нарисовать в окне все, что нужно
+* освободить контекст устройства с помощью функции **`EndPaint`**
+
+Структура RECTANGLE
+---
+
+* структура для хранения четырех координат
+* координаты окна определяются с помощью функции **`GetWindowRect(hwnd, &rect)`**
+* координаты рабочей области определяются с помощью функции **`GetClientRect(hwnd, &rect)`**
+
+```cpp
+struct RECT{
+  LONG left; // левая координата
+  LONG  top; // верхняя координата
+  LONG right; // правая координата
+  LONG bottom;  // нижняя координата
+};
+```
+
+Структура PAINTSTRUCT
+---
+
+• содержит поля, нужные для рисования
+• заполняется Windows, когда вызывается функция **`BeginPaint`**
+
+```cpp
+struct PAINTSTRUCT {
+HDC        hdc;         // дескриптор контекста устройства
+BOOL       fErase;      // обновить фон недействит. области
+RECT       rcPaint;     // координаты недействит. области
+BOOL       fRestore;
+BOOL       fIncUpdate;
+BYTE       rgbReserved[32];
+};
+```
+
+Подготовка к рисованию (пример)
+---
+
+```cpp
+HDC hdc;        // дескриптор контекста устройства
+PAINTSTRUCT ps; // структура для рисования
+RECT rect;      // структура для координат
+
+switch(iMsg) {
+  case WM_PAINT:
+    hdc = BeginPaint(hwnd, &ps);  // получение hdc
+    GetClientRect(hwnd, &rect);   // получение координат
+    
+    // Рисование
+    EndPaint(hwnd, &ps);          // освобождение hdc
+    break;
+  }
+/* ... */
+}
+```
+
+Рисование текста
+---
+
+```cpp
+int DrawText(HDC hdc, LPCWSTR lpchText, int cchText, LPRECT lprc, UINT format);
+```
+
+```cpp
+BOOL TextOut(HDC hdc, int nxStart, int nyStart, LPCTSTR lpString, int cchString);
+```
+
+* текст **`рисуется в окне`**
+* нужен **`контекст устройства`** (структура данных, которая связана с устройством вывода – принтером, окном и т.п.)
+
+DrawText
+---
+
+```cpp
+int DrawText(
+  HDC hdc,          // контекст устройства
+  LPCWSTR lpchText, // рисуемый текст
+  int cchText,      // длина текста
+  LPRECT lprc,      // размеры поля форматирования
+  UINT format);     // формат вывода
+```
+
+* если параметр `cchText` равен `-1`, то строка должна быть занулена
+* некоторые флаги: **`DT_CENTER`**, **`DT_LEFT`**, **`DT_VCENTER`**, **`DT_SINGLELINE`**, **`DT_WORDBREAK`**
+
+TextOut
+---
+
+```cpp
+BOOL TextOut(
+  HDC hdc,        // контекст устройства
+  int nxStart,    // координата x начала рисования
+  int nyStart,    // координата y начала рисования 
+  lpString,       // выводимая строка
+  int cchString); // размер строки
+```
+
+* Выравнивание текста можно задать отдельно с помощью функции `SetTextAlign(HDC hdc, UINT textMode)`
+
+Рисование текста (пример 1)
+---
+
+```cpp
+HDC hdc;
+PAINTSTRUCT ps;
+TEXTMETRIC tm; // Структура с настройками шрифта
+static int height;
+switch(iMsg) {
+  case WM_CREATE:
+    hdc = GetDC(hwnd);
+    GetTextMetrics(hdc, &tm);
+    height = tm.tmExternalLeading + tm.tmHeight;
+    ReleaseDC(hwnd, hdc);
+    break;
+  case WM_PAINT:
+    hdc = BeginPaint(hwnd, &ps);
+    TextOut(hdc, 10, 10, L"Это текстовая строка", 20);
+    TextOut(hdc, 10, height + 10, L"Это текстовая строка", 20);
+    EndPaint(hwnd, &ps);
+    break;  /* ... */
+}
+```
+
+Рисование текста (пример 2)
+---
+
+```cpp
+HDC hdc;
+PAINTSTRUCT ps;
+RECT rect;
+/* ... */
+case WM_PAINT:
+  hdc = BeginPaint(hwnd, &ps);
+  GetClientRect(hwnd, &rect);
+  SetTextColor(hdc, RGB(50, 50, 150));  // Цвет шрифта
+  SetBkMode(hdc, TRANSPARENT);          // Не закрашивать фон 
+                                        // под текстом
+  DrawText(hdc, L"Hello, Step\nBye, Step", -1, &rect, DT_CENTER | DT_TOP );
+  EndPaint(hwnd, &ps);
+  break;
+}
+```
+
+
+
+
+
 
 
 
