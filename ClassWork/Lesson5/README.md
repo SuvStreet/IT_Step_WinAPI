@@ -26,7 +26,7 @@
 * шаблон с описанием стиля и содержания окна `(dialog box template)`
 * процедура для обработки сообщений `(dialog box procedure)`
 
-![]()
+![](https://pp.userapi.com/c837225/v837225341/52d75/QSqjo3a3yRI.jpg)
 
 Создание модального диалога
 ---
@@ -304,10 +304,6 @@ case WM_COMMAND:
   break;
 ```
 
-
-
-
-
-
+[**-->     Laboratory_work5     <--**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/Laboratory_work/Work5)
 
 **21.08.2017**
