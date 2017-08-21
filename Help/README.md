@@ -37,4 +37,31 @@
 >###### [**Обработка сообщений таймера**](https://github.com/SuvStreet/IT_Step_WinAPI/blob/master/ClassWork/Lesson2/README.md#Обработка-сообщений-таймера)
 >###### [**Изменение стиля**](https://github.com/SuvStreet/IT_Step_WinAPI/blob/master/ClassWork/Lesson2/README.md#Изменение-стиля)
 
+* ## [**Обработка сообщений**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Обработка-сообщений)
+>###### [**Ресурсы**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Ресурсы)
+>###### [**Изменение иконки (вариант 1)**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Изменение-иконки-вариант-1)
+>###### [**Изменение иконки (вариант 2)**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Изменение-иконки-вариант-2)
+>###### [**Сообщения мыши**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Сообщения-мыши)
+>###### [**Особенности сообщений мыши**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Особенности-сообщений-мыши)
+>###### [**Обработка сообщений мыши (пример)**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Обработка-сообщений-мыши-пример)
+>###### [**Сообщения клавиатуры**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Сообщения-клавиатуры)
+>###### [**Виртуальные коды клавиш (Virtual key)**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Виртуальные-коды-клавиш-virtual-key)
+>###### [**Сообщения клавиатуры (нажатие символьных клавиш)**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Сообщения-клавиатуры-нажатие-символьных-клавиш)
+>###### [**Обработка сообщений клавиатуры (пример)**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Обработка-сообщений-клавиатуры-пример)
+>###### [**Событие WM_PAINT**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Событие-wm_paint)
+>###### [**Обработка события WM_PAINT**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Обработка-события-wm_paint)
+>###### [**Структура RECTANGLE**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Структура-rectangle)
+>###### [**Структура PAINTSTRUCT**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Структура-paintstruct)
+>###### [**Подготовка к рисованию (пример)**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Подготовка-к-рисованию-пример)
+>###### [**Рисование текста**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Рисование-текста)
+
+
+
+
+
+
+
+* ## [**Дочерние окна. Статик**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson4#Дочерние-окна-Статик)
+>###### [**Создание дочернего окна**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson4#Создание-дочернего-окна)
+
 * ## [**---**](-)
