@@ -54,14 +54,27 @@
 >###### [**Структура PAINTSTRUCT**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Структура-paintstruct)
 >###### [**Подготовка к рисованию (пример)**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Подготовка-к-рисованию-пример)
 >###### [**Рисование текста**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Рисование-текста)
-
-
-
-
-
-
+>###### [**DrawText**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#drawtext)
+>###### [**TextOut**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#textout)
+>###### [**Рисование текста (пример 1)**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Рисование-текста-пример-1)
+>###### [**Рисование текста (пример 2)**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Рисование-текста-пример-2)
+>###### [**Рисование вне WM_PAINT (при сообщениях мыши или клавиатуры)**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Рисование-вне-wm_paint-при-сообщениях-мыши-или-клавиатуры)
+>###### [**Полезные функции (1)**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Полезные-функции-1)
+>###### [**Полезные функции (2)**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Полезные-функции-2)
 
 * ## [**Дочерние окна. Статик**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson4#Дочерние-окна-Статик)
 >###### [**Создание дочернего окна**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson4#Создание-дочернего-окна)
+>###### [**Создание дочернего окна (пример)**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson4#Создание-дочернего-окна-пример)
+>###### [**Полезные функции**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson4#Полезные-функции)
+>###### [**Элементы управления**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson4#Элементы-управления)
+>###### [**Статик**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson4#Статик)
+>###### [**Стили статика (Styles statics)**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson4#Стили-статика-styles-statics)
+>###### [**Создание статика (пример)**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson4#Создание-статика-пример)
 
 * ## [**---**](-)
+
+
+
+
+
+
