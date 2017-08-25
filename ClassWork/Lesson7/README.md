@@ -158,7 +158,91 @@ TrackBarStule                                                     | Описан
 **`TBS_BOTH, TBS_LEFT, TBS_RIGHT (Point: Both / Left / Right)`**  |   Устанавливает, где будут метки: с двух сторон, сверху / слева, снизу / справа
 **`TBS_TOOLTIPS (Tooltips: True)`**                               |   Добавляет всплывающие подсказки
 
+Создание ползунка
+---
 
+```cpp
+static HWND hTrackBar;
+// ...
+hTrackBar = CreateWindowEx(
+    NULL, 
+    TRACKBAR_CLASS,                 // класс 
+    NULL, 
+    WS_CHILD | WS_VISIBLE | TBS_BOTH | TBS_TOOLTIPS | 
+    TBS_AUTOTICKS,                  //Стили
+    30, 150, 200, 40,
+    hWndParent,
+    (HMENU) IDC_TRACKBAR,
+    GetModuleHandle(NULL),
+    NULL); 
+```
+
+Коды сообщений
+---
+
+TrackBarMessage         |   Действие
+------------------------|------------------------------------
+**`TBM_SETRANGE`**      |       Задает диапазон для ползунка (по умолчанию от 0 до 100; bRedraw – флаг для перерисовки)
+**`TBM_SETPOS`**        |       Устанавливает ползунок в позицию iNewPos
+**`TBM_GETPOS`**        |       Возвращает текущую позицию ползунка
+**`TBM_SETLINESIZE`**   |       Задает шаг iSize при перемещении ползунка с помощью стрелок
+**`TBM_SETPAGESIZE`**   |       Задает шаг iSize при перемещении с помощью PageUp и PageDown
+**`TBM_SETTICFREQ`**    |       Задает шаг меток iStep
+
+
+wParam  | lParam
+--------|-----------
+bRedraw |   MAKELPARAM(min, max)
+bRedraw |   iNewPos
+0       |   0
+0       |   iSize
+0       |   iSize
+iStep   |   0
+
+Сообщения от ползунка
+---
+
+* если родителю посылается сообщение `WM_HSCROLL` или `WM_VSCROLL` :
+    * lParam – **`дескриптор`** ползунка
+    * LOWORD(wParam) – **`код сообщения`**
+
+TrackBar            |   Описание
+--------------------|-----------------------
+**`TB_BOTTOM`**     |       Нажата клавиша `End` (выставлена максимальная позиция)
+**`TB_TOP`**        |       Нажата клавиша `Home` (выставлена мин. позиция)
+**`TB_PAGEUP`**     |       Нажата клавиша `PageUp` или щелчок мышью левее / выше
+**`TB_PAGEDOWN`**   |       Нажата клавиша `PageDown` или щелчок мышью правее / ниже
+**`TB_LINEUP`**     |       Нажата стрелка влево / вверх
+**`TB_LINEDOWN`**   |       Нажата стрелка вправо / вниз
+**`TB_THUMBTRACK`** |       Ползунок перемещается с помощью мыши
+
+Обработка сообщений (пример)
+---
+
+```cpp
+case WM_INITDIALOG:
+    hTrackBar = CreateWindowEx(
+        NULL,
+        TRACKBAR_CLASS,
+        NULL,
+        WS_CHILD | WS_VISIBLE | TBS_TOOLTIPS | TBS_BOTH | TBS_AUTOTICKS,
+        30, 150, 200, 40,
+        hwnd,
+        (HMENU)IDC_TB,
+        GetModuleHandle(NULL),
+        NULL);
+        
+    SendMessage(hTrackBar, TBM_SETRANGE, true, MAKELPARAM(0, 200));
+    SendMessage(hTrackBar, TBM_SETLINESIZE, 0, 1);
+    SendMessage(hTrackBar, TBM_SETTICFREQ, 50, 0);
+return true;
+
+case WM_HSCROLL:
+    if (SendMessage(hTrackBar, TBM_GETPOS, 0, 0) > 150) {
+        SendMessage(hTrackBar, TBM_SETPOS, true, 0);
+        }
+return true;
+```
 
 
 
