@@ -142,7 +142,7 @@ BOOL CALLBACK MainDlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 }
 ```
 
-Кнопки.
+Кнопки
 ===
 
 * относятся к классу `BUTTON`
@@ -151,7 +151,7 @@ BOOL CALLBACK MainDlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam){
 * посылают родительскому окну сообщения `WM_COMMAND`
 
 Создание кнопки (пример)
-===
+---
 
 ```cpp
 #define ID_BUTTON 3000
@@ -302,6 +302,177 @@ case WM_COMMAND:
     break;
   }
   break;
+```
+
+Текстовые поля (Edit box)
+===
+
+* относятся к классу `EDIT`
+* нужны **`для ввода текста`** с клавиатуры и его редактирования
+* по умолчанию – однострочные
+* создаются с помощью функции `CreateWindow` или `CreateWindowEx`
+* **`получают сообщения`** от родительского окна
+* **`посылают сообщения`** `WM_COMMAND` родительскому окну
+
+Создание текстового поля
+---
+
+```cpp
+#define ID_EDIT 100
+
+HWND hWndParent, hEdit;
+// ...
+hEdit = CreateWindowEx(
+  WS_EX_TOPMOST, 
+  L"EDIT",                // класс 
+  L"???",                 // текст в поле редактора 
+  WS_CHILD | WS_VISIBLE,  // стили
+  10, 10, 100, 50,
+  hWndParent,             // родительское окно
+  (HMENU) ID_EDIT,        // идентификатор
+  hInstance,
+  NULL);
+```
+
+Стили текстовых полей
+---
+
+* начинаются с префикса **`ES_`**
+
+EditStyle                                       | Описание
+------------------------------------------------|------------------------------------------------------------
+**`ES_LEFT`**, **`ES_RIGHT`**, **`ES_CENTER`**  |  Выравнивание текста
+**`ES_UPPERCASE`**                              |  Преобразовать текст к верхнему регистру
+**`ES_LOWERCASE`**                              |  Преобразовать текст к нижнему регистру
+**`ES_MULTILINE`**                              |  Многострочное текстовое поле
+**`ES_WANTRETURN`**                             |  При нажатии кнопки <Enter> перейти на следующую строку в текстовом поле
+**`ES_READONLY`**                               |  Запрет на редактирование текста в поле
+**`ES_NUMBER`**                                 |  Разрешить вводить только цифры
+**`ES_PASSWORD`**                               |  Отображать при вводе не буквы, а `*`
+**`ES_AUTOHSCROLL`**, **`ES_AUTOVSCROLL`**      |  Автоматическая прокрутка текста по вертикали  или по горизонтали
+
+Изменение стиля
+---
+
+* при выполнении стиль уже созданного элемента часто **`нельзя`** изменить 
+* в некоторых случаях можно изменить стиль с помощью функции **`SetWindowLong`**
+
+```cpp
+LONG WINAPI SetWindowLong(HWND hWnd, int ind, LONG newS);
+```
+
+```cpp
+LONG style;
+/* ... */
+case WM_LBUTTONDOWN:
+
+ style = GetWindowLong(
+  hEdit,
+  GWL_STYLE); 
+  
+ SetWindowLong(
+  hEdit,
+  GWL_STYLE,
+  style | ES_NUMBER);
+break;
+```
+
+Сообщения текстовому полю
+---
+
+* чтобы послать сообщение текстовому полю, используется функция `SendMessage`
+
+```cpp
+LRESULT SendMessage(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+```
+
+```cpp
+case ID_BUT_DELETE:
+ SendMessage(hEdit1, WM_CUT, 0, 0);
+break;
+
+case ID_BUT_PASTE:
+ SendMessage(hEdit2, WM_PASTE, 0, 0);
+ SetFocus(hEdit1);
+break;
+```
+
+Коды сообщений
+---
+
+Код сообщения     | Действие
+------------------|---------------------
+**`WM_CLEAR`**    |  Удалить выделенный текст
+**`WM_CUT`**      |  Переместить выделенный текст в буфер обмена
+**`WM_COPY`**     |  Скопировать выделенный текст в буфер обмена
+**`WM_PASTE`**    |  Вставить текст из буфера обмена
+**`EM_GETLINE`**  |  Копировать строку `Line` в буфер `Buf`
+**`WM_GETTEXT`**  |  Копировать не более чем `max` символов в буфер `Buf`
+**`WM_SETTEXT`**  |  Копировать текст из строки `Line` в текстовое поле
+**`EM_SETSEL`**   |  Выделить текст от позиции `Start` до `End`
+
+wParam | lParam
+-------|-----------
+0      |  0
+0      |  0
+0      |  0
+0      |  0
+Line   |  Buf
+max    |  Buf
+0      |  &Line
+Start  |  End 
+
+Сообщения от текстовых полей
+---
+
+* родителю посылается сообщение `WM_COMMAND`
+ * lParam – **`дескриптор`** текстового редактора
+ * LOWORD(wParam) – **`идентификатор`** редактора
+ * HIWORD(wParam) – **`код сообщения`**
+
+```cpp
+case WM_COMMAND:
+ switch (LOWORD(wParam)) {
+ case ID_EDIT:
+  if (HIWORD(wParam) == EN_ERRSPACE ) {  /* ... */ }
+ break;
+ // ...
+ }
+break;
+```
+
+Коды сообщений
+---
+
+Код сообщения      | Назначение
+-------------------|-----------------------------
+**`EN_CHANGE`**    |  Текст в редакторе будет меняться
+**`EN_MAXTEXT`**   |  Превышена заданная для редактора длина текста 
+**`EN_UPDATE`**    |  Последняя операция над текстом выполнена, но поле редактора еще не обновлено
+**`EN_SETFOCUS`**  |  Текстовый редактор получил фокус ввода
+**`EN_KILLFOCUS`** |  Текстовый редактор потерял фокус ввода
+**`EN_ERRSPACE`**  |  Не хватает памяти, чтобы выполнить действие
+**`EN_HSCROLL`**   |  По горизонтальной линейке прокрутки щелкнули  мышью
+**`EN_VSCROLL`**   |  По вертикальной линейке прокрутки щелкнули мышью
+
+Обработка сообщений (пример)
+---
+
+```cpp
+wchar_t buf[100];
+// ...
+case WM_COMMAND:
+ switch(LOWORD(wParam)) {
+ 
+ case ID_BUTTON:
+  SendMessage(hEdit, EM_GETLINE, 0, (LPARAM)buf);
+  MessageBox(hwnd, buf, L"Ваш текст", MB_OK);
+  SetWindowText(hEdit, NULL);
+  SetFocus(hEdit);
+  break;
+  // ...
+  }
+break;
 ```
 
 [**-->     Laboratory_work5     <--**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/Laboratory_work/Work5)
