@@ -244,6 +244,119 @@ case WM_HSCROLL:
 return true;
 ```
 
+Счетчик (Spin Control, Up-Down Control)
+---
+
+* позволяет выбирать дискретные значения в заданном диапазоне, инкрементируя или декрементируя их
+* относится к классу `UPDOWN_CLASS`
+* программно создается с помощью функции `CreateWindow`, `CreateWindowEx` или `CreateUpDownControl`
+
+Стили (свойства) счетчика
+---
+
+* начинаются с префикса **`UDS_`**
+
+UpdownClassStyle                                                | Описание
+----------------------------------------------------------------|-----------------------------------------
+**`UDS_HORZ (Orientation: Horizontal)`**                        |   Задает горизонтальную ориентацию счетчика (по умолчанию вертикальная)
+**`UDS_WRAP (Wrap: True)`**                                     |   Устанавливает циклический переход от максимального значения к минимальному
+**`UDS_AUTOBUDDY (Auto Buddy: True)`**                          |   Назначает «приятелем» ближайший подходящий элемент
+**`UDS_SETBUDDYINT (Set Buddy Integer: True)`**                 |   Указывает, что значения счетчика и значение в «приятеле» должны изменяться синхронно
+**`UDS_ALIGNLEFT | UDS_ALIGNRIGHT (Alignment: Left | Right)`**  |   Задает положение счетчика слева / справа от «приятеля»
+**`UDS_ARROWKEYS (Arrow Keys: True)`**                          |   Задает управление счетчиком с помощью стрелок
+
+Создание счетчика
+---
+
+```cpp
+static HWND hUpDown;
+// ...
+hUpDown = CreateWindowEx(
+    NULL, 
+    UPDOWN_CLASS,
+    NULL, 
+    WS_CHILD | WS_VISIBLE | UDS_WRAP | UDS_AUTOBUDDY | UDS_SETBUDDYINT | UDS_ALIGNLEFT | UDS_ARROWKEYS,
+    50, 150, 20, 20,
+    hWndParent,
+    (HMENU) IDC_UPDOWN,
+    GetModuleHandle(NULL),
+    NULL); 
+```
+
+Коды сообщений
+---
+
+UpdownClassMessage      | Описание
+------------------------|--------------------
+**`UDM_SETBUDDY`**      |   Задает счетчику «приятеля» с дескриптором `hwndBuddy`
+**`UDM_SETRANGE32`**    |   Устанавливает диапазон счетчика (от `iMin` до `iMax`)
+**`UDM_SETBASE`**       |   Устанавливает основание системы счисления для счетчика
+**`UDM_SETPOS32`**      |   Устанавливает значение счетчика в позицию `iNewPos`
+**`UDM_GETPOS32`**      |   Возвращает текущую позицию счетчика; если `bError` = `true`, то значение не получено
+
+wParam      |   lParam
+------------|------------
+hwndBuddy   |   0
+iMin        |   iMax
+iBase       |   0
+0           |   iNewPos
+0           |   bError
+
+Сообщения от счетчика
+---
+
+* при нажатии стрелок родителю посылается сообщение `WM_HSCROLL` или `WM_VSCROLL` :
+    * LOWORD(wParam) содержит **`код сообщения SB_THUMBPOSITION`**
+* при вводе нового значения в «приятеля» счетчика «приятель» посылает родителю сообщение `WM_COMMAND`:
+    * HIWORD(wParam) содержит **`код сообщения EN_CHANGE`**
+
+Обработка сообщений (пример)
+---
+
+```cpp
+case WM_INITDIALOG:
+    
+    // ...
+
+    SendMessage(hUpDown, UDM_SETBUDDY, (WPARAM)hEdit, 0);
+    SendMessage(hUD, UDM_SETRANGE32, 0, 300);
+    SendMessage(hUD, UDM_SETPOS32, 0, 0);
+    
+return true;
+
+case WM_VSCROLL:
+
+    curPos = SendMessage(hUD, UDM_GETPOS32, 0, 0);
+    MoveWindow(hwnd, curPos, curPos, rect.right, rect.bottom, true);
+
+return true;
+
+case WM_COMMAND:
+
+    if (HIWORD(wParam) == EN_CHANGE) {
+        SendMessage(hwnd, WM_VSCROLL, 0, 0);
+        }
+        
+return true;
+```
+
+Строка состояния (Status Bar)
+---
+
+* выводит вспомогательную информацию
+* относится к классу `STATUSCLASSNANE`
+* программно создается с помощью функции `CreateWindow`, `CreateWindowEx` или `CreateStatusWindow` (функция устарела)
+
+```cpp
+BOOL CreateStatusWindow(
+    LONG style,         // стили
+    LPCTSTR lpszText,   // текст в первой секции
+    HWND hHwndParent,   // дескриптор родителя
+    UINT uID            // идентификатор строки состояния
+);
+```
+
+
 
 
 
