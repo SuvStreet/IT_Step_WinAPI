@@ -1,7 +1,7 @@
 Общие элементы управления
 ===
 
-![]()
+![](https://pp.userapi.com/c840729/v840729055/1324/68E1slLDyjY.jpg)
 
 нужно подключить библиотеку **`comctl32.dll`**
 
@@ -38,7 +38,7 @@ InitCommonControlsEx(&cc);      // регистрация класса
 * программно создается с помощью функции `CreateWindow` или `CreateWindowEx`
 * получает **`сообщения`** от родительского окна
 
-![]()
+![](https://pp.userapi.com/c840729/v840729055/132b/_lHvc1AOXj4.jpg)
 
 Стили (свойства) индикатора
 ---
@@ -142,7 +142,7 @@ return true;
 * **`получает сообщения`** от родительского окна
 * посылает сообщения родительскому окну (`WM_NOTIFY`)
 
-![]()
+![](https://pp.userapi.com/c840729/v840729055/1332/L3dIGfbQ5Rg.jpg)
 
 Стили (свойства) ползунка
 ---
@@ -356,10 +356,82 @@ BOOL CreateStatusWindow(
 );
 ```
 
+Стили строки состояния
+---
+
+StatusBarStyle          | Описание
+------------------------|--------------------------------------
+**`SBT_TOOLTIPS`**      |   Делаются доступны всплывающие подсказки, если текст не помещается в секции целиком
+**`SBARS_TOOLTIPS`**    |   Делаются доступны всплывающие подсказки,  если текст не помещается в секции целиком
+**`SBARS_SIZEGRIP`**    |   Добавляется специальная область для  изменения размера родительского окна
+
+* поддерживаются общие стили (`CCS_BOTTOM` и др.)
+
+Создание строки состояния
+---
+
+```cpp
+static HWND hStatusBar;
+// ...
+hStatusBar = CreateWindowEx(
+    NULL, 
+    STATUSCLASSNAME,            // класс 
+    NULL, 
+    WS_CHILD | WS_VISIBLE | SBARS_TOOLTIPS | SBARS_SIZEGRIP,
+    CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT,
+    hWndParent,                 // Родительское окно
+    (HMENU) IDC_STATUSBAR,
+    GetModuleHandle(NULL),
+    NULL); 
+```
+
+Коды сообщений
+---
+
+Код сообщения           |   Действие
+------------------------|------------------------------------------------
+**`SB_SIMPLE`**         |       Задает стиль строки состояния: `bStyle` = `true` – одна секция, `bStyle` = `false` – много секций
+**`SB_SETPARTS`**       |       Разбивает строку состояния на `iParts` секций, с правыми координатами из массива `iArray`
+**`SB_SETTEXT`**        |       Устанавливает текст `lpszText` в секцию с индексом `iIndex`
+**`SB_GETTEXT`**        |       Сохраняет текст из секции `iIndex` в буфер `szBuf`
+**`SB_GETTEXTLENGTH`**  |       Получает длину текста из секции `iIndex`
+**`SB_GETRECT`**        |       Сохраняет размеры секции `iIndex` в структуру `rRect` типа `RECT`
+**`SB_SETTIPTEXT`**     |       Устанавливает текст `lpszTooltip` как подсказку к секции `iIndex`
 
 
+wParam | lParam
+-------|------
+bStyle |    0
+iParts |    iArray
+iIndex |    lpszText
+iIndex |    szBuf
+iIndex |    0
+iIndex |    rRect
+iIndex |    lpszTooltip
 
+Обработка сообщений (пример)
+---
 
-[**-->     Laboratory_work7     <--**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/Laboratory_work/Work6)
+```cpp
+static HWND hStBar;
+// ...
+case WM_INITDIALOG:
+    hStBar = CreateStatusWindow (
+        WS_CHILD | WS_VISIBLE | SBARS_TOOLTIPS | SBARS_SIZEGRIP,
+        NULL,
+        hwnd,
+        10);
+    
+    SendMessage(hStatusBar, SB_SIMPLE, false, 0);
+    SendMessage(hStatusBar, SB_SETBKCOLOR, 0, RGB(0, 200, 0));
+    SendMessage(hStatusBar, SB_SETTIPTEXT, 0, (LPARAM)L"Status Bar - example");
+return true;
+
+case WM_RBUTTONDOWN:
+    SendMessage(hStatusBar, SB_SETTEXT, 0, (LPARAM) L"\t\tWM_RBUTTONDOWN message");
+return true;
+```
+
+[**-->     Laboratory_work7     <--**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/Laboratory_work/Work7)
 
 **24.08.2017**
