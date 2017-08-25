@@ -102,7 +102,7 @@ BOOL CALLBACK DlgProc(HWND hwnd, UINT uMessage, WPARAM wParam, LPARAM lParam);
   * для необработанных сообщений возвращается `false`, а для обработанных – `true`
   * для закрытия используется сообщение `WM_CLOSE` и вызывается функция `DestroyWindow`
 
-Немодальный диалог (пример)
+Немодальный диалог (пример 1)
 ---
 
 ```cpp
@@ -121,7 +121,7 @@ INT WINAPI WinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPSTR cmdArgs, int nCmd
 }
 ```
 
-Немодальный диалог (пример)
+Немодальный диалог (пример 2)
 ---
 
 ```cpp
