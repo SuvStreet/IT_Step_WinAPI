@@ -6,11 +6,11 @@
 
 * обычный список (ListBox)
 
-![]()
+![](https://pp.userapi.com/c840729/v840729055/1347/OIQqOqYaFNE.jpg)
 
 * комбинированный список (ComboBox)
 
-![]()
+![](https://pp.userapi.com/c840729/v840729055/134e/vK_qx7ML51E.jpg)
 
 Списки строк (listBox)
 ---
@@ -212,8 +212,108 @@ hComboBox = CreateWindowEx(
     NULL); 
 ```
 
+Сообщения списку
+---
 
+* чтобы послать сообщение списку, используется функция `SendMessage`
 
+```cpp
+LRESULT WINAPI SendMessage(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+```
+
+```cpp
+case WM_CREATE:
+  // ...
+  SendMessage(hComboBox, CB_ADDSTRING, 0, (LPARAM)L"1");
+  SendMessage(hComboBox, CB_ADDSTRING, 0, (LPARAM)L"2");
+break;
+```
+
+Коды сообщений
+---
+
+Код сообщения         | Действие
+----------------------|----------------------------------
+**`CB_ADDSTRING`**    |   Добавить в список строку `str`
+**`CB_DELETESTRING`** |   Удалить строку с номером `i`
+**`CB_GETCOUNT`**     |   Найти количество строк в списке
+**`CB_GETCURSEL`**    |   Вернуть номер выбранной  строки
+**`CB_SETCURSEL`**    |   Выбрать `i`-ую строку
+**`СВ_GETLBTEXT`**    |   Копировать строку с номером `i` в  буфер `buf`
+**`CB_FINDSTRING`**   |   Найти строку `str` с позиции `i`
+**`СВ_GETEDITSEL`**   |   Получить текущее выделение
+**`CB_SETEDITSET`**   |   Выделить текст, начиная с позиции `iStart` и до позиции `iEnd`
+
+wParam    | lParam
+----------|--------------------
+0         |   str 
+I         |   0 
+0         |   0 
+0         |   0
+I         |   0 
+I         |   buf
+I         |   str
+&iStart   |   &iEnd 
+iStart    |   iEnd
+
+Сообщения от списков
+---
+
+* родителю посылается сообщение `WM_COMMAND`
+  * lParam – **`дескриптор`** списка
+  * LOWORD(wParam) – **`идентификатор`** списка
+  * HIWORD(wParam) – **`код сообщения`**
+  
+```cpp
+case WM_COMMAND:
+  switch (LOWORD(wParam)) {
+  case ID_COMBOBOX:
+    if (HIWORD(wParam) == CBN_CLOSEUP ) {  /* … */ }
+  break;
+  // ...
+}
+break;
+```
+
+Коды сообщений списков
+---
+
+Код сообщения           | Назначение
+------------------------|------------------------------
+**`CBN_CLOSEUP`**       |   Список стал невидимым
+**`CBN_DROPDOWN`**      |   Список стал видимым
+**`CBN_SELENDOK`**      |   Пользователь выбрал строку в списке
+**`CBN_SELCHANGE`**     |   Изменился номер выбранной строки
+**`CBN_SELENDCANCEL`**  |   Пользователь отменил выбор строки в списке
+**`CBN_DBLCLK`**        |   Двойной щелчок левой кнопкой мыши по строке
+**`CBN_SETFOCUS`**      |   Список получил фокус ввода
+**`CBN_KILLFOCUS`**     |   Список потерял фокус ввода
+**`CBN_EDITCHANGE`**    |   Пользователь изменил содержимое окна редактирования, изменения отображены
+**`CBN_EDITUPDATE`**    |   Пользователь изменил содержимое окна редактирования, изменения не отображены
+
+Обработка сообщений (пример)
+---
+
+```cpp
+wchar_t buf[100];
+int index;
+// ...
+case WM_COMMAND:
+  switch(LOWORD(wParam)) {
+  
+  case ID_COMBOBOX:
+    if (HIWORD(wParam) == CBN_DBLCLK) {
+      index = SendMessage(hCmb, CB_GETCURSEL, 0, 0);
+        if (index != CB_ERR){
+          SendMessage(hCmb, CB_GETLBTEXT, index, (LPARAM)buf);
+
+          MessageBox(NULL, buf, L"Тест", MB_OK);
+        }
+  break;
+  // ...
+    }
+// ...
+```
 
 [**-->     Laboratory_work6     <--**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/Laboratory_work/Work6)
 
