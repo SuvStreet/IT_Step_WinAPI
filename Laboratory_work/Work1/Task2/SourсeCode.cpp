@@ -10,19 +10,19 @@ int main() {
 
 	setlocale(LC_ALL, "Belarusian");
 
-	std::ifstream filein;
+	std::wifstream filein;
 	filein.open("karatkevich.txt");
 	if (!filein.is_open()) { std::cout << "File not found!" << std::endl; }
 
-	std::ofstream fileout;
+	std::wofstream fileout;
 	fileout.open("Received_Information.txt");
 	if (!fileout.is_open()) { std::cout << "The file is not created!" << std::endl; }
 
 	std::locale loc(std::locale::classic(), new std::codecvt_utf8<wchar_t>);
 	fileout.imbue(loc);
 
-	std::vector<std::string> text;
-	std::string temp;
+	std::vector<std::wstring> text;
+	std::wstring temp;
 	while (filein >> temp) {
 		text.push_back(temp);
 	}
@@ -52,7 +52,7 @@ int main() {
 	}
 	fileout << _TEXT("Самыя кароткія словы : даўжыня ") << min << _T('\n') << std::endl;
 
-	std::set<std::string> mini;
+	std::set<std::wstring> mini;
 	int counterMin = 0;
 	for (auto length : text) {
 		if (length.size() == min) {
