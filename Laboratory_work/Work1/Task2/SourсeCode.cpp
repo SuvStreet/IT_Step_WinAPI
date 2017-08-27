@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 #include <vector>
 #include <set>
 #include <codecvt>
@@ -7,19 +8,21 @@
 
 int main() {
 
-	setlocale(LC_ALL, "Russian");
+	setlocale(LC_ALL, "Belarusian");
 
-	std::wifstream filein;
-	filein.open("text.txt");
+	std::ifstream filein;
+	filein.open("karatkevich.txt");
 	if (!filein.is_open()) { std::cout << "File not found!" << std::endl; }
 
-	std::wofstream fileout;
+	std::ofstream fileout;
 	fileout.open("Received_Information.txt");
 	if (!fileout.is_open()) { std::cout << "The file is not created!" << std::endl; }
 
-	std::vector<std::wstring> text;
+	std::locale loc(std::locale::classic(), new std::codecvt_utf8<wchar_t>);
+	fileout.imbue(loc);
 
-	std::wstring temp;
+	std::vector<std::string> text;
+	std::string temp;
 	while (filein >> temp) {
 		text.push_back(temp);
 	}
@@ -29,19 +32,17 @@ int main() {
 		if (length.size() > max)
 			max = length.size();
 	}
+
+	fileout << _TEXT("Самыя доўгія словы: даўжыня ") << max << _T('\n') << std::endl;
+
 	int counterMax = 0;
-
-	std::locale loc(std::locale::classic(), new std::codecvt_utf8<wchar_t>);
-	fileout.imbue(loc);
-
-	fileout << _TEXT("Самые длинные слова: длина ") << max << _T('\n') << std::endl;
 	for (auto length : text) {
 		if (length.size() == max) {
 			fileout << length << std::endl;
 			++counterMax;
 		}
 	}
-	fileout << _TEXT("\nИх количество: ") << counterMax << _T('\n');
+	fileout << _TEXT("\nІх колькасць: ") << counterMax << _T('\n');
 	fileout << std::endl;
 
 	int min = text.front().size();
@@ -49,9 +50,10 @@ int main() {
 		if (length.size() < min)
 			min = length.size();
 	}
+	fileout << _TEXT("Самыя кароткія словы : даўжыня ") << min << _T('\n') << std::endl;
+
+	std::set<std::string> mini;
 	int counterMin = 0;
-	std::set<std::wstring> mini;
-	fileout << _TEXT("Самые короткие слова : длина ") << min << _T('\n') << std::endl;
 	for (auto length : text) {
 		if (length.size() == min) {
 			if (!mini.count(length)) {
@@ -61,7 +63,7 @@ int main() {
 			++counterMin;
 		}
 	}
-	fileout << _TEXT("\nИх количество: ") << counterMin << std::endl;
+	fileout << _TEXT("\nІх колькасць: ") << counterMin << std::endl;
 
 	int size = 0;
 	int del = 0;
@@ -70,7 +72,7 @@ int main() {
 		size += length.size();
 		++del;
 	}
-	fileout << _TEXT("\nСредняя длина слов: ") << size / del;
+	fileout << _TEXT("\nСярэдняя даўжыня слоў: ") << size / del;
 
 	filein.close();
 	fileout.close();
