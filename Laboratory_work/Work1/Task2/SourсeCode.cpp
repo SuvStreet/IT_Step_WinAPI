@@ -7,18 +7,16 @@
 #include <tchar.h>
 
 int main() {
-
-	setlocale(LC_ALL, "Belarusian");
+	std::locale loc(std::locale::classic(), new std::codecvt_utf8<wchar_t>);
 
 	std::wifstream filein;
 	filein.open("karatkevich.txt");
-	if (!filein.is_open()) { std::cout << "File not found!" << std::endl; }
+	if (!filein.is_open()) { std::wcout << _TEXT("File not found!") << std::endl; }
+	filein.imbue(loc);
 
 	std::wofstream fileout;
 	fileout.open("Received_Information.txt");
-	if (!fileout.is_open()) { std::cout << "The file is not created!" << std::endl; }
-
-	std::locale loc(std::locale::classic(), new std::codecvt_utf8<wchar_t>);
+	if (!fileout.is_open()) { std::wcout << _TEXT("The file is not created!") << std::endl; }
 	fileout.imbue(loc);
 
 	std::vector<std::wstring> text;
