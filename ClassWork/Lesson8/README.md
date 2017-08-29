@@ -250,4 +250,4 @@ while(GetMessage(&msg, 0, 0, 0)) {
 
 **28.08.2017**
 
-![**<-- Общие элементы управления**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson7#Общие-элементы-управления) `________________________________________________________________________` ![**Next -->**]()
+[**<-- Общие элементы управления**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson7#Общие-элементы-управления) `=/=` [**Next -->**]()
