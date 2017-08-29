@@ -398,4 +398,4 @@ return true;
 
 **24.08.2017**
 
-![**<-- Списки**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson6#Списки) `____________________________________________________________________________________________` ![**Меню -->**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson8#Меню)
+[**<-- Списки**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson6#Списки) `=/=` [**Меню -->**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson8#Меню)
