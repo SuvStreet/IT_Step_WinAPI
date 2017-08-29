@@ -1,3 +1,5 @@
+> **Материал подготовлен преподователем Волчек Оксаной Анатольевной по курсу WinAPI. Учебное заведение "Компьютерная Академия Шаг".**
+
 Общие элементы управления
 ===
 
@@ -82,27 +84,16 @@ hProgressBar = CreateWindowEx(
 Коды сообщений
 ---
 
-ProgressBarMessage      | Действие
-------------------------|-----------------------
-**`PBM_SETBKCOLOR`**    |   Задать цвет фона индикатора
-**`PBM_SETBARCOLOR`**   |   Задать цвет самого индикатора
-**`PBM_SETRANGE`**      |   Установить диапазон для индикатора
-**`PBM_SETPOS`**        |   Установить позицию индикатора в `nNewPos`
-**`PBM_DELTAPOS`**      |   Прибавить к текущей позиции индикатора `nDelta`
-**`PBM_SETSTEP`**       |   Задать шаг индикатора `nStep`
-**`PBM_STEPIT`**        |   Прибавить к текущей позиции заданный шаг `nStep`
-**`PBM_GETPOS`**        |   Получить текущую позицию
-
-wParam  | lParam
---------|-----------
-0       |   (COLORREF) clrBk
-0       |   (COLORREF)clrBar
-0       |   MAKELPARAM (min, max)
-nNewPos |   0
-nDelta  |   0
-nStep   |   0 
-0       |   0
-0       |   0
+ProgressBarMessage      | wParam      | lParam                  | Действие
+------------------------|-------------|-------------------------|----------------------------------------------------
+**`PBM_SETBKCOLOR`**    |   0         |  (COLORREF)clrBk        |   Задать цвет фона индикатора
+**`PBM_SETBARCOLOR`**   |   0         |  (COLORREF)clrBar       |   Задать цвет самого индикатора
+**`PBM_SETRANGE`**      |   0         |  MAKELPARAM (min, max)  |   Установить диапазон для индикатора
+**`PBM_SETPOS`**        |   nNewPos   |  0                      |   Установить позицию индикатора в `nNewPos`
+**`PBM_DELTAPOS`**      |   nDelta    |  0                      |   Прибавить к текущей позиции индикатора `nDelta`
+**`PBM_SETSTEP`**       |   nStep     |  0                      |   Задать шаг индикатора `nStep`
+**`PBM_STEPIT`**        |   0         |  0                      |   Прибавить к текущей позиции заданный шаг `nStep`
+**`PBM_GETPOS`**        |   0         |  0                      |   Получить текущую позицию
 
 Обработка сообщений (пример)
 ---
@@ -180,24 +171,14 @@ hTrackBar = CreateWindowEx(
 Коды сообщений
 ---
 
-TrackBarMessage         |   Действие
-------------------------|------------------------------------
-**`TBM_SETRANGE`**      |       Задает диапазон для ползунка (по умолчанию от 0 до 100; bRedraw – флаг для перерисовки)
-**`TBM_SETPOS`**        |       Устанавливает ползунок в позицию iNewPos
-**`TBM_GETPOS`**        |       Возвращает текущую позицию ползунка
-**`TBM_SETLINESIZE`**   |       Задает шаг iSize при перемещении ползунка с помощью стрелок
-**`TBM_SETPAGESIZE`**   |       Задает шаг iSize при перемещении с помощью PageUp и PageDown
-**`TBM_SETTICFREQ`**    |       Задает шаг меток iStep
-
-
-wParam  | lParam
---------|-----------
-bRedraw |   MAKELPARAM(min, max)
-bRedraw |   iNewPos
-0       |   0
-0       |   iSize
-0       |   iSize
-iStep   |   0
+TrackBarMessage        | wParam  | lParam               | Действие
+-----------------------|---------|----------------------|------------------------------------
+**`TBM_SETRANGE`**     | bRedraw | MAKELPARAM(min, max) | Задает диапазон для ползунка (по умолчанию от 0 до 100; bRedraw – флаг для перерисовки)
+**`TBM_SETPOS`**       | bRedraw | iNewPos              |  Устанавливает ползунок в позицию iNewPos
+**`TBM_GETPOS`**       | 0       | 0                    |  Возвращает текущую позицию ползунка
+**`TBM_SETLINESIZE`**  | 0       | iSize                |  Задает шаг iSize при перемещении ползунка с помощью стрелок
+**`TBM_SETPAGESIZE`**  | 0       | iSize                |  Задает шаг iSize при перемещении с помощью PageUp и PageDown
+**`TBM_SETTICFREQ`**   | iStep   | 0                    |  Задает шаг меток iStep
 
 Сообщения от ползунка
 ---
@@ -286,21 +267,13 @@ hUpDown = CreateWindowEx(
 Коды сообщений
 ---
 
-UpdownClassMessage      | Описание
-------------------------|--------------------
-**`UDM_SETBUDDY`**      |   Задает счетчику «приятеля» с дескриптором `hwndBuddy`
-**`UDM_SETRANGE32`**    |   Устанавливает диапазон счетчика (от `iMin` до `iMax`)
-**`UDM_SETBASE`**       |   Устанавливает основание системы счисления для счетчика
-**`UDM_SETPOS32`**      |   Устанавливает значение счетчика в позицию `iNewPos`
-**`UDM_GETPOS32`**      |   Возвращает текущую позицию счетчика; если `bError` = `true`, то значение не получено
-
-wParam      |   lParam
-------------|------------
-hwndBuddy   |   0
-iMin        |   iMax
-iBase       |   0
-0           |   iNewPos
-0           |   bError
+UpdownClassMessage     | wParam      | lParam       | Описание
+-----------------------|-------------|--------------|--------------------
+**`UDM_SETBUDDY`**     | hwndBuddy   |   0          |  Задает счетчику «приятеля» с дескриптором `hwndBuddy`
+**`UDM_SETRANGE32`**   | iMin        |   iMax       |  Устанавливает диапазон счетчика (от `iMin` до `iMax`)
+**`UDM_SETBASE`**      | iBase       |   0          |  Устанавливает основание системы счисления для счетчика
+**`UDM_SETPOS32`**     | 0           |   iNewPos    |  Устанавливает значение счетчика в позицию `iNewPos`
+**`UDM_GETPOS32`**     | 0           |   bError     |  Возвращает текущую позицию счетчика; если `bError` = `true`, то значение не получено
 
 Сообщения от счетчика
 ---
@@ -388,26 +361,15 @@ hStatusBar = CreateWindowEx(
 Коды сообщений
 ---
 
-Код сообщения           |   Действие
-------------------------|------------------------------------------------
-**`SB_SIMPLE`**         |       Задает стиль строки состояния: `bStyle` = `true` – одна секция, `bStyle` = `false` – много секций
-**`SB_SETPARTS`**       |       Разбивает строку состояния на `iParts` секций, с правыми координатами из массива `iArray`
-**`SB_SETTEXT`**        |       Устанавливает текст `lpszText` в секцию с индексом `iIndex`
-**`SB_GETTEXT`**        |       Сохраняет текст из секции `iIndex` в буфер `szBuf`
-**`SB_GETTEXTLENGTH`**  |       Получает длину текста из секции `iIndex`
-**`SB_GETRECT`**        |       Сохраняет размеры секции `iIndex` в структуру `rRect` типа `RECT`
-**`SB_SETTIPTEXT`**     |       Устанавливает текст `lpszTooltip` как подсказку к секции `iIndex`
-
-
-wParam | lParam
--------|------
-bStyle |    0
-iParts |    iArray
-iIndex |    lpszText
-iIndex |    szBuf
-iIndex |    0
-iIndex |    rRect
-iIndex |    lpszTooltip
+Код сообщения          | wParam | lParam    | Действие
+-----------------------|--------|-----------|------------------------------------------------
+**`SB_SIMPLE`**        | bStyle | 0         |  Задает стиль строки состояния: `bStyle` = `true` – одна секция, `bStyle` = `false` – много секций
+**`SB_SETPARTS`**      | iParts | iArray    |  Разбивает строку состояния на `iParts` секций, с правыми координатами из массива `iArray`
+**`SB_SETTEXT`**       | iIndex | lpszText  |  Устанавливает текст `lpszText` в секцию с индексом `iIndex`
+**`SB_GETTEXT`**       | iIndex | szBuf     |  Сохраняет текст из секции `iIndex` в буфер `szBuf`
+**`SB_GETTEXTLENGTH`** | iIndex | 0         |  Получает длину текста из секции `iIndex`
+**`SB_GETRECT`**       | iIndex | rRect     |  Сохраняет размеры секции `iIndex` в структуру `rRect` типа `RECT`
+**`SB_SETTIPTEXT`**    | iIndex |lpszTooltip|  Устанавливает текст `lpszTooltip` как подсказку к секции `iIndex`
 
 Обработка сообщений (пример)
 ---
@@ -435,3 +397,5 @@ return true;
 [**-->     Laboratory_work7     <--**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/Laboratory_work/Work7)
 
 **24.08.2017**
+
+![**<-- Списки**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson6#Списки) `____________________________________________________________________________________________` ![**Меню -->**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson8#Меню)
