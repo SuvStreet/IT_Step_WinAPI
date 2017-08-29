@@ -155,23 +155,30 @@ case WM_COMMAND:
 return true;
 ```
 
-Функции для программного создания меню (1)
+Функции для программного создания меню
 ---
 
 1. HMENU `CreateMenu`() – создать меню
 2. HMENU `CreatePopupMenu`() – создать подменю
 3. BOOL `AppendMenu`(HMENU hMenu, UINT uFlags, UINT_PTR uIdNewItem, LPCTSTR lpNewItem) – добавить пункт в конец меню
 
-**`MF_POPUP`**
-**`MF_SEPARATOR`**
-**`MF_STRING`**
-**`MF_CHECKED`**
-**`MF_UNCHECKED`**
-**`MF_ENABLED`**
-**`MF_DISABLED`**
-**`MF_GRAYED`**
+**`MF_POPUP`** **`MF_SEPARATOR`** **`MF_STRING`**
 
+**`MF_CHECKED`** **`MF_UNCHECKED`**
 
+**`MF_ENABLED`** **`MF_DISABLED`** **`MF_GRAYED`**
+
+4.
+```cpp
+BOOL InsertMenu(HMENU hMenu,
+                UINT uPos,            // перед каким пунктом вставлять
+                UINT uFlags,          // MF_BYCOMMAND или MF_BYPOSITION и другие флаги
+                UINT_PTR uIdNewItem,  // ID нового пункта
+                LPCTSTR lpNewItem     // содержимое нового пункта меню
+               )
+```
+
+**`Вставка пункта в меню перед пунктом UINT uPos`**
 
 
 
