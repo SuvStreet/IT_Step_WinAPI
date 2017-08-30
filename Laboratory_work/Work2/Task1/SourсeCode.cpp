@@ -87,7 +87,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
 			ShowWindow(hWnd3, SW_SHOWNORMAL);
 			KillTimer(hWnd3, ID_TIMER3);
 			SetTimer(hWnd4, ID_TIMER4, 3000, NULL);
-		
 		}
 		else if (wParam == ID_TIMER4) {
 			ShowWindow(hWnd4, SW_SHOWNORMAL);
