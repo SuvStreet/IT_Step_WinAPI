@@ -1,5 +1,9 @@
 #include <windows.h>
 #include <tchar.h>
+#include <string>
+
+#define ID_OK 101
+#define ID_CANCEL 102
 
 int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int);
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -7,7 +11,7 @@ LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR IpCmdLine, int nCmdShow) {
 	LPTSTR szClassName = _TEXT("MyWindowClass");
 	LPTSTR szTitleName = _TEXT("My first window");
-	
+
 	// регистрация оконного класса
 	WNDCLASSEX wndclass;
 	//memset(&wndclass, 0, sizeof(wndclass));			// предворительное обнуление = ! выстовление параметров важных полей
@@ -25,35 +29,35 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR IpCmdLine
 	wndclass.hIconSm = LoadIcon(NULL, IDI_APPLICATION);		// дескриптор маленькой иконки						[HICON]	  	hIconSm
 
 	if (!RegisterClassEx(&wndclass)) {
-		MessageBox(NULL, L"1", NULL, MB_OK | MB_ICONSTOP);
+		MessageBox(NULL, _TEXT("1"), NULL, MB_OK | MB_ICONSTOP);
 		return false;
 	}
-	
+
 	// создание окна
-	HWND hWnd = CreateWindowEx(		
-		WS_EX_TOPMOST,			// [DWORD]		dwExStyle
-		szClassName,			// [LPSTR]		lpClassName
-		_TEXT("My first window"),	// [LPSTR]		lpWindowName
-		WS_OVERLAPPEDWINDOW,		// [DWORD]		dwStyle
-		10, 10, 500, 500,		// [int]		X, Y, nWidth, nHeight,
-		HWND_DESKTOP,			// [HWND]		hWndParent
-		NULL,				// [HMENU]		hMenu
-		hInstance,			// [HINSTANCE]		hInstance
-		NULL);				// [LPVOID]		lpParam
+	HWND hWnd = CreateWindowEx(
+		WS_EX_TOPMOST,				// [DWORD]		dwExStyle
+		szClassName,				// [LPSTR]		lpClassName
+		_TEXT("My first window"),		// [LPSTR]		lpWindowName
+		WS_OVERLAPPEDWINDOW ^ WS_THICKFRAME,	// [DWORD]		dwStyle
+		10, 10, 500, 500,			// [int]		X, Y, nWidth, nHeight,
+		HWND_DESKTOP,				// [HWND]		hWndParent
+		NULL,					// [HMENU]		hMenu
+		hInstance,				// [HINSTANCE]		hInstance
+		NULL);					// [LPVOID]		lpParam
 
 	if (!hWnd) {
 
 		// окно сообщений
 		MessageBox(
 			NULL,			// дескриптор родителя		[HWND]		hWnd
-			L"2",			// текст внутри окна		[LPCWSTR]	lpText
+			_TEXT("2"),		// текст внутри окна		[LPCWSTR]	lpText
 			NULL,			// заголовок окна		[LPCWSTR]	lpCaption
 			MB_OK | MB_ICONSTOP);	// набор кнопок, тип окна	[UINT]		uType
 		return false;
 	}
 
 	// показ окна
-	ShowWindow(hWnd, 1);
+	ShowWindow(hWnd, SW_NORMAL);
 	UpdateWindow(hWnd);
 
 	// цикл сообщений
@@ -66,25 +70,73 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR IpCmdLine
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
-	HDC hdc;			// Если нужно рисовать  в окне
-	PAINTSTRUCT ps;
-	RECT rect;
+	
+	RECT rect; 				// коордионаты рабочей области
+	static HWND hWndBut1, hWndBut2; 	// дискрипторы кнопок
+
+	static int x = 0;
+	std::wstring str = _TEXT("");
 
 	// обработка сообщений
 	switch (iMsg) {
-		case WM_PAINT:
-			hdc = BeginPaint(hWnd, &ps);
-			GetClientRect(hWnd, &rect);
-			DrawText(hdc, _TEXT("Hello, Step"), -1, &rect, DT_CENTER | DT_SINGLELINE | DT_VCENTER);
-			EndPaint(hWnd, &ps);
-			break;
 
-		case WM_DESTROY:
+	case WM_CREATE:
+
+		GetClientRect(hWnd, &rect);
+		
+		hWndBut1 = CreateWindowEx(
+			WS_EX_TOPMOST,
+			_TEXT("BUTTON"),
+			_TEXT("OK"),              			// Текст на кнопке
+			WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON,    	// Стиль
+			rect.right - 240, rect.bottom - 30, 130, 30,
+			hWnd,					  	// Родитель
+			(HMENU)ID_OK,		  			// ID кнопки
+			GetModuleHandle(NULL),
+			NULL);
+
+		hWndBut2 = CreateWindowEx(
+			WS_EX_TOPMOST,
+			_TEXT("BUTTON"),
+			_TEXT("Сancel"),          			// Текст на кнопке
+			WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON,    	// Стиль
+			rect.right - 100, rect.bottom - 30, 100, 30,
+			hWnd,					  	// Родитель
+			(HMENU)ID_CANCEL,		  		// ID кнопки
+			GetModuleHandle(NULL),
+			NULL);
+		break;
+
+	case WM_SIZE:
+		GetClientRect(hWnd, &rect);
+		MoveWindow(hWndBut1, rect.right - 240, rect.bottom - 30, 130, 30, true);
+		MoveWindow(hWndBut2, rect.right - 100, rect.bottom - 30, 100, 30, true);
+		return true;
+
+	case WM_COMMAND:
+		
+		if (LOWORD(wParam) == ID_OK){
+			str = _TEXT("Нажато");
+			str += _T(' ');
+			++x;
+			str += std::to_wstring(x);
+			str += _TEXT(" раз(a)");
+			SetWindowText(hWndBut1, str.c_str());
+		}
+
+		if (LOWORD(wParam) == ID_CANCEL) {
+			DestroyWindow(hWnd);
 			PostQuitMessage(0);
-			break;
+		}
+		break;
 
-		default:
-			return DefWindowProc(hWnd, iMsg, wParam, lParam);
+	case WM_DESTROY:
+
+		PostQuitMessage(0);
+		break;
+
+	default:
+		return DefWindowProc(hWnd, iMsg, wParam, lParam);
 	}
 	return 0;
 }
