@@ -30,7 +30,7 @@
 Шрифт (Font)              | CHOOSEFONT      |  ChooseFont
 Цвет (Color)              | CHOOSECOLOR     |  ChooseColor
 
-Структура OPENFILENAME (1)
+Структура OPENFILENAME
 ---
 
 ```cpp
