@@ -31,14 +31,14 @@
   return HANDLE_##message((hwnd), (wParam), (lParam), (fn))
 ```
 
-![]()
+![](https://pp.userapi.com/c639425/v639425392/73274/x4tkPjAVsa0.jpg)
 
 ```cpp
 case (WM_CLOSE):
   return HANDLE_WM_CLOSE((hwnd), (wParam), (lParam), (Cls_OnClose));
 ```
 
-![]()
+![](https://pp.userapi.com/c639425/v639425392/73274/x4tkPjAVsa0.jpg)
 
 ```cpp
 /* void Cls_OnClose(HWND hwnd) */ [F12]
@@ -61,7 +61,7 @@ case (WM_CLOSE):
   return HANDLE_##message((hwnd), (wParam), (lParam), (fn))
 ```
 
-![]()
+![](https://pp.userapi.com/c639425/v639425392/73274/x4tkPjAVsa0.jpg)
 
 ```cpp
 case (WM_COMMAND):
@@ -69,7 +69,7 @@ return HANDLE_WM_COMMAND((hwnd), (wParam),
 (lParam), (Cls_OnCommand));
 ```
 
-![]()
+![](https://pp.userapi.com/c639425/v639425392/73274/x4tkPjAVsa0.jpg)
 
 ```cpp
 /* void Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify) */
@@ -84,7 +84,7 @@ return HANDLE_WM_COMMAND((hwnd), (wParam),
 Структура кода
 ---
 
-![]()
+![](https://pp.userapi.com/c639425/v639425392/7326d/UQ0GvGAo7Tg.jpg)
 
 MyWindow.h
 ---
@@ -127,8 +127,55 @@ MyWindow* MyWindow::ptr = NULL;
 MyWindow::MyWindow() {
   ptr = this;
 }
+
+BOOL CALLBACK MyWindow::DlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
+  
+  switch (uMsg) {
+    HANDLE_MSG(hWnd, WM_CLOSE, ptr->Cls_OnClose);
+    HANDLE_MSG(hWnd, WM_INITDIALOG, ptr->Cls_OnInitDialog);
+    HANDLE_MSG(hWnd, WM_COMMAND, ptr->Cls_OnCommand);
+  }
+  return false;
+}
+
+BOOL MyWindow::Cls_OnInitDialog(HWND hWnd, HWND hFocus,  LPARAM lParam) {
+  hDialog = hWnd;
+  hButOK = GetDlgItem(hDialog, IDOK);
+  hButCancel = GetDlgItem(hDialog, IDCANCEL);
+  return true;
+}
+
+void MyWindow::Cls_OnClose(HWND hWnd) {
+  EndDialog(hWnd, 0);
+}
+
+void MyWindow::Cls_OnCommand(HWND hwnd, int id, HWND hwndCtl, UINT codeNotify) {
+  
+  if (id == IDOK) {
+    MessageBox(hDialog, L"OK!", L"Info", MB_OK);
+  }
+  else if (id == IDCANCEL) {
+    MessageBox(hDialog, L"CANCEL!", L"Info", MB_OK);
+    SendMessage(hDialog, WM_CLOSE, 0, 0);
+    }
+
+}
+```
+
+main.cpp
+---
+
+* Функция WinMain
+  * создание объекта класса MyWindow
+  * вызов функции для создания окна
+
+```cpp
+int WINAPI WinMain(HINSTANCE hInst, HINSTANCE, LPSTR, int) {
+  MyWindow wnd;
+  return DialogBox(hInst, MAKEINTRESOURCE(IDD_DIALOG1), NULL, MyWindow::DlgProc);
+}
 ```
 
 **31.08.2017**
 
-[**<-- **]() `=/=` [**Next -->**]()
+[**<-- Стандартные диалоговые окна**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson9#Стандартные-диалоговые-окна)
