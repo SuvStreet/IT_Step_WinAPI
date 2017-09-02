@@ -23,7 +23,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR IpCmdLine
 	wndclass.hInstance = hInstance;					// (!) дескриптор приложения						[HINSTANCE] 	hInstance
 	wndclass.hCursor = LoadCursor(NULL, IDC_ARROW);			// дескриптор курсора мыши						[HCURSOR]	hCursor
 	wndclass.hIcon = LoadIcon(NULL, IDI_APPLICATION);		// дескриптор пиктограммы						[HICON]	  	hIcon
-	wndclass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH); 	// CreateSolidBrush(RGB(0, 0, 0)); // дескриптор кисти для фона 	[HBRUSH]	hbrBackground
+	wndclass.hbrBackground = (HBRUSH)GetStockObject(GRAY_BRUSH); 	// CreateSolidBrush(RGB(0, 0, 0)); // дескриптор кисти для фона 	[HBRUSH]	hbrBackground
 	wndclass.lpszMenuName = NULL;					// имя меню								[LPCWSTR]	lpszMenuName
 	wndclass.lpszClassName = szClassName;				// имя класса окна							[LPCWSTR]   	lpszClassName
 	wndclass.hIconSm = LoadIcon(NULL, IDI_APPLICATION);		// дескриптор маленькой иконки						[HICON]	  	hIconSm
@@ -70,7 +70,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR IpCmdLine
 }
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
-	
+
 	RECT rect; 				// коордионаты рабочей области
 	static HWND hWndBut1, hWndBut2; 	// дискрипторы кнопок
 
@@ -83,7 +83,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
 	case WM_CREATE:
 
 		GetClientRect(hWnd, &rect);
-		
+
 		hWndBut1 = CreateWindowEx(
 			WS_EX_TOPMOST,
 			_TEXT("BUTTON"),
@@ -109,12 +109,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMsg, WPARAM wParam, LPARAM lParam) {
 
 	case WM_SIZE:
 		GetClientRect(hWnd, &rect);
-		MoveWindow(hWndBut1, rect.right - 240, rect.bottom - 30, 130, 30, true);
-		MoveWindow(hWndBut2, rect.right - 100, rect.bottom - 30, 100, 30, true);
+		MoveWindow(hWndBut1, rect.right - 245, rect.bottom - 40, 130, 30, true);
+		MoveWindow(hWndBut2, rect.right - 110, rect.bottom - 40, 100, 30, true);
 		return true;
 
 	case WM_COMMAND:
-		
+
 		if (LOWORD(wParam) == ID_OK){
 			str = _TEXT("Нажато");
 			str += _T(' ');
