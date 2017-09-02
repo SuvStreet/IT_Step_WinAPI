@@ -1,3 +1,5 @@
+> **Материал подготовлен преподавателем Волчек Оксаной Анатольевной по курсу WinAPI. Учебное заведение "Компьютерная Академия Шаг".**
+
 Введение в Windows-программирование
 ===
 
@@ -494,3 +496,5 @@ DWORD cursorOldIndex = SetClassLong(hWnd, GCL_HCURSOR, LoadCursor(NULL, IDC_WAIT
 [**-->     Laboratory_work2     <--**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/Laboratory_work/Work2)
 
 **15.08.2017**
+
+[**<-- Кодировки**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson1#Кодировки) `=/=` [**Обработка сообщений -->**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Обработка-сообщений)
