@@ -1,3 +1,5 @@
+> **Материал подготовлен преподавателем Волчек Оксаной Анатольевной по курсу WinAPI. Учебное заведение "Компьютерная Академия Шаг".**
+
 Обработка сообщений
 ===
 
@@ -356,3 +358,6 @@ break;
 [**-->     Laboratory_work3     <--**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/Laboratory_work/Work3)
 
 **16.08.2017**
+
+
+[**<-- Введение в Windows-программирование**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson2#Введение-в-windows-программирование) `=/=` [**Дочерние окна. Статик -->**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson4#Дочерние-окна-Статик)
