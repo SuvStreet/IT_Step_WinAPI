@@ -1,3 +1,5 @@
+> **Материал подготовлен преподавателем Волчек Оксаной Анатольевной по курсу WinAPI. Учебное заведение "Компьютерная Академия Шаг".**
+
 Списки
 ===
 
@@ -89,31 +91,18 @@ case WM_CREATE:
 Коды сообщений
 ---
 
-Код сообщения         | Действие
-----------------------|------------------
-**`LB_ADDSTRING`**    | Добавить в список строку szStr
-**`LB_DELETESTRING`** | Удалить строку с номером i
-**`LB_GETCOUNT`**     | Найти количество строк в списке
-**`LB_GETTEXT`**      | Копировать i-ую строку в szStr
-**`LB_GETTEXTLEN`**   | Получить длину строки с номером i
-**`LB_RESETCONTENT`** | Очистить список
-**`LB_SETCURSEL`**    | Выбрать i-ую строку
-**`LB_GETCURSEL`**    | Вернуть номер выбранной строки
-**`LB_FINDSTRING`**   | Найти строку с префиксом szStr,искать с позиции iStart (-1)
-**`LB_GETSELCOUNT`**  | Вернуть число выбранных строк
-
-Значение wParam   |  Значение lParam
-------------------|-------------------
-0                 |   szStr
-I                 |   0 
-0                 |   0 
-i                 |   szStr
-i                 |   0
-0                 |   0 
-i                 |   0 
-0                 |   0 
-iStart            |   szStr
-0                 |   0
+Код сообщения         | Значение wParam   |  Значение lParam  | Действие
+----------------------|-------------------|-------------------|------------------
+**`LB_ADDSTRING`**    | 0                 |   szStr           | Добавить в список строку szStr
+**`LB_DELETESTRING`** | i                 |   0               | Удалить строку с номером i
+**`LB_GETCOUNT`**     | 0                 |   0               | Найти количество строк в списке
+**`LB_GETTEXT`**      | i                 |   szStr           | Копировать i-ую строку в szStr
+**`LB_GETTEXTLEN`**   | i                 |   0               | Получить длину строки с номером i
+**`LB_RESETCONTENT`** | 0                 |   0               | Очистить список
+**`LB_SETCURSEL`**    | i                 |   0               | Выбрать i-ую строку
+**`LB_GETCURSEL`**    | 0                 |   0               | Вернуть номер выбранной строки
+**`LB_FINDSTRING`**   | iStart            |   szStr           | Найти строку с префиксом szStr,искать с позиции iStart (-1)
+**`LB_GETSELCOUNT`**  | 0                 |   0               | Вернуть число выбранных строк
 
 Сообщения от списков
 ---
@@ -133,7 +122,6 @@ case WM_COMMAND:
   }
 break;
 ```
-
 
 Коды сообщений списков
 ---
@@ -204,7 +192,7 @@ hComboBox = CreateWindowEx(
     WS_EX_TOPMOST,
     L"COMBOBOX",                        // класс
     NULL,
-    WS_CHILD | WS_VISIBLE | CBS_SIMPLE, //Стили
+    WS_CHILD | WS_VISIBLE | CBS_SIMPLE, // Стили
     10, 10, 100, 150,
     hWndParent,                         // Родительское окно
     (HMENU) ID_COMBOBOX,
@@ -232,29 +220,17 @@ break;
 Коды сообщений
 ---
 
-Код сообщения         | Действие
-----------------------|----------------------------------
-**`CB_ADDSTRING`**    |   Добавить в список строку `str`
-**`CB_DELETESTRING`** |   Удалить строку с номером `i`
-**`CB_GETCOUNT`**     |   Найти количество строк в списке
-**`CB_GETCURSEL`**    |   Вернуть номер выбранной  строки
-**`CB_SETCURSEL`**    |   Выбрать `i`-ую строку
-**`СВ_GETLBTEXT`**    |   Копировать строку с номером `i` в  буфер `buf`
-**`CB_FINDSTRING`**   |   Найти строку `str` с позиции `i`
-**`СВ_GETEDITSEL`**   |   Получить текущее выделение
-**`CB_SETEDITSET`**   |   Выделить текст, начиная с позиции `iStart` и до позиции `iEnd`
-
-wParam    | lParam
-----------|--------------------
-0         |   str 
-I         |   0 
-0         |   0 
-0         |   0
-I         |   0 
-I         |   buf
-I         |   str
-&iStart   |   &iEnd 
-iStart    |   iEnd
+Код сообщения         |wParam     |lParam     | Действие
+----------------------|-----------|-----------|----------------------------------
+**`CB_ADDSTRING`**    | 0         |   str     |   Добавить в список строку `str`
+**`CB_DELETESTRING`** | i         |   0       |   Удалить строку с номером `i`
+**`CB_GETCOUNT`**     | 0         |   0       |   Найти количество строк в списке
+**`CB_GETCURSEL`**    | 0         |   0       |   Вернуть номер выбранной  строки
+**`CB_SETCURSEL`**    | i         |   0       |   Выбрать `i`-ую строку
+**`СВ_GETLBTEXT`**    | i         |   buf     |   Копировать строку с номером `i` в  буфер `buf`
+**`CB_FINDSTRING`**   | i         |   str     |   Найти строку `str` с позиции `i`
+**`СВ_GETEDITSEL`**   | &iStart   |   &iEnd   |   Получить текущее выделение
+**`CB_SETEDITSET`**   | iStart    |   iEnd    |   Выделить текст, начиная с позиции `iStart` и до позиции `iEnd`
 
 Сообщения от списков
 ---
@@ -318,3 +294,5 @@ case WM_COMMAND:
 [**-->     Laboratory_work6     <--**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/Laboratory_work/Work6)
 
 **22.08.2017 - 23.08.2017**
+
+[**<-- Диалоговые окна (dialog box)**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson5#Диалоговые-окна-dialog-box) `=/=` [**Общие элементы управления -->**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson7#Общие-элементы-управления)
