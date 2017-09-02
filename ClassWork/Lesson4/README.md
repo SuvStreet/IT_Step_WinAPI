@@ -1,3 +1,5 @@
+> **Материал подготовлен преподавателем Волчек Оксаной Анатольевной по курсу WinAPI. Учебное заведение "Компьютерная Академия Шаг".**
+
 Дочерние окна. Статик
 ===
 
@@ -113,3 +115,5 @@ hWndStat = CreateWindowEx(
 [**-->     Laboratory_work4     <--**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/Laboratory_work/Work4)
 
 **17.08.2017**
+
+[**<-- Обработка сообщений**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson3#Обработка-сообщений) `=/=` [**Диалоговые окна / Кнопки / Текстовые поля -->**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson5#Диалоговые-окна-dialog-box)
