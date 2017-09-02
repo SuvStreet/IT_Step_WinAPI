@@ -209,4 +209,4 @@ ReleaseDC(hwnd, hdc);
 
 **30.08.2017**
 
-[**<-- Общие элементы управления**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson7#Общие-элементы-управления) `=/=` [**Распаковщики сообщений -->**](https://github.com/SuvStreet/IT_Step_WinAPI/blob/master/ClassWork/Lesson_10/README.md#Распаковщики-сообщений)
+[**<-- Общие элементы управления**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson7#Общие-элементы-управления) `=/=` [**Распаковщики сообщений -->**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson_10#Распаковщики-сообщений)
