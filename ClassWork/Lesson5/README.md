@@ -1,3 +1,5 @@
+> **Материал подготовлен преподавателем Волчек Оксаной Анатольевной по курсу WinAPI. Учебное заведение "Компьютерная Академия Шаг".**
+
 Диалоговые окна (dialog box)
 ===
 
@@ -35,14 +37,10 @@
 * для создания используется функция `DialogBox`
 
 ```cpp
-INT_PTR DialogBox(HINSTANCE hInstance,  // дескриптор
-                                        // приложения
-                  LPCTSTR lpTemplate,   // строка
-                                        // с шаблоном
-                  HWND hWndParent,      // дескриптор
-                                        // родителя
-                  DLGPROC lpDlgFunc)    // обработчик
-                                        // сообщений
+INT_PTR DialogBox(HINSTANCE hInstance,  // дескриптор приложения
+                  LPCTSTR lpTemplate,   // строка с шаблоном
+                  HWND hWndParent,      // дескриптор родителя
+                  DLGPROC lpDlgFunc)    // обработчик сообщений
 ```
 
 * не имеет своего цикла обработки сообщений
@@ -81,14 +79,10 @@ BOOL CALLBACK DlgProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
 * для создания используется функция `CreateDialog`
 
 ```cpp
-HWND CreateDialog(HINSTANCE hInstance,  // дескриптор
-                                        // приложения
-                  LPCTSTR lpTemplate,   // строка
-                                        // с шаблоном
-                  HWND hWndParent,      // дескриптор
-                                        // родителя
-                  DLGPROC lpDlgFunc)    // обработчик
-                                        // сообщений
+HWND CreateDialog(HINSTANCE hInstance,  // дескриптор приложения
+                  LPCTSTR lpTemplate,   // строка с шаблоном
+                  HWND hWndParent,      // дескриптор родителя
+                  DLGPROC lpDlgFunc)    // обработчик сообщений
 ```
 
 * в WinMain должен быть цикл обработки сообщений
@@ -394,27 +388,16 @@ break;
 Коды сообщений
 ---
 
-Код сообщения     | Действие
-------------------|---------------------
-**`WM_CLEAR`**    |  Удалить выделенный текст
-**`WM_CUT`**      |  Переместить выделенный текст в буфер обмена
-**`WM_COPY`**     |  Скопировать выделенный текст в буфер обмена
-**`WM_PASTE`**    |  Вставить текст из буфера обмена
-**`EM_GETLINE`**  |  Копировать строку `Line` в буфер `Buf`
-**`WM_GETTEXT`**  |  Копировать не более чем `max` символов в буфер `Buf`
-**`WM_SETTEXT`**  |  Копировать текст из строки `Line` в текстовое поле
-**`EM_SETSEL`**   |  Выделить текст от позиции `Start` до `End`
-
-wParam | lParam
--------|-----------
-0      |  0
-0      |  0
-0      |  0
-0      |  0
-Line   |  Buf
-max    |  Buf
-0      |  &Line
-Start  |  End 
+Код сообщения     |wParam  | lParam | Действие
+------------------|--------|--------|---------------------
+**`WM_CLEAR`**    | 0      |  0     |  Удалить выделенный текст
+**`WM_CUT`**      | 0      |  0     |  Переместить выделенный текст в буфер обмена
+**`WM_COPY`**     | 0      |  0     |  Скопировать выделенный текст в буфер обмена
+**`WM_PASTE`**    | 0      |  0     |  Вставить текст из буфера обмена
+**`EM_GETLINE`**  | Line   |  Buf   |  Копировать строку `Line` в буфер `Buf`
+**`WM_GETTEXT`**  | max    |  Buf   |  Копировать не более чем `max` символов в буфер `Buf`
+**`WM_SETTEXT`**  | 0      |  &Line |  Копировать текст из строки `Line` в текстовое поле
+**`EM_SETSEL`**   | Start  |  End   |  Выделить текст от позиции `Start` до `End`
 
 Сообщения от текстовых полей
 ---
@@ -472,3 +455,5 @@ break;
 [**-->     Laboratory_work5     <--**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/Laboratory_work/Work5)
 
 **21.08.2017**
+
+[**<-- Дочерние окна. Статик**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson4#Дочерние-окна-Статик) `=/=` [**Списки -->**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson6#Списки)
