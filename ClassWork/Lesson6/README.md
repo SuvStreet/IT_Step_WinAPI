@@ -295,4 +295,4 @@ case WM_COMMAND:
 
 **22.08.2017 - 23.08.2017**
 
-[**<-- Диалоговые окна (dialog box)**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson5#Диалоговые-окна-dialog-box) `=/=` [**Общие элементы управления -->**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson7#Общие-элементы-управления)
+[**<-- Диалоговые окна / Кнопки / Текстовые поля**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson5#Диалоговые-окна-dialog-box) `=/=` [**Общие элементы управления -->**](https://github.com/SuvStreet/IT_Step_WinAPI/tree/master/ClassWork/Lesson7#Общие-элементы-управления)
