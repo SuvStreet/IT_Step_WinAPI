@@ -1,3 +1,5 @@
+// Resources / Add / Dialog / New
+
 #include <windows.h>
 #include <tchar.h>
 #include <string>
